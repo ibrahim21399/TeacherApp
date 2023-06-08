@@ -1,9 +1,9 @@
 
-const Model = require("./../Models/studentModel");
+const Model = require("./../Models/fieldModel");
 
 //getAll
 module.exports.getAll =(request, response, next) => {
-    console.log("get all students");
+    console.log("get all fields");
     Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
         response.status(200).json({ data });
@@ -29,19 +29,17 @@ module.exports.getAll =(request, response, next) => {
 module.exports.create = (request, response, next) => {
   console.log("create");
 
-  Model.find({ email: request.body.email })
+  Model.find({ name: request.body.name  })
     .then((Data) => {
       if (Object.keys(Data).length != 0) {
         //exist
         console.log("Already Exists");
-        throw new error("Duplicated Email");
+        throw new error("Duplicated field");
       } else {
-        let student = new Model({
-          email: request.body.email,
-          name: request.body.name,
-         
+        let field = new Model({
+          name: request.body.name,      
         });
-        student.save().then((data) => {
+        field.save().then((data) => {
             response.status(201).json({ message: "created", data });
             console.log("created");
           })
@@ -64,7 +62,6 @@ module.exports.create = (request, response, next) => {
 
     Model.updateOne({"_id":request.body.id},{
       $set:{
-        email: request.body.email,
         name: request.body.name,
       }
   }).then((data)=>{

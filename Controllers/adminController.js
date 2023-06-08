@@ -38,9 +38,7 @@ module.exports.create = (request, response, next) => {
       } else {
         let admin = new Model({
           email: request.body.email,
-          name: request.body.name,
-          password: request.body.password,
-         
+          name: request.body.name,      
         });
         admin.save().then((data) => {
             response.status(201).json({ message: "created", data });
@@ -67,7 +65,6 @@ module.exports.create = (request, response, next) => {
       $set:{
         email: request.body.email,
         name: request.body.name,
-       // password: request.body.password,
       }
   }).then((data)=>{
       if(data.matchedCount==0)
