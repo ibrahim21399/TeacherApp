@@ -1,27 +1,90 @@
-
 const Model = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
 const checkValidation = require("./../Middleware/checkValidationFn");
+//getActiveTeachers
+module.exports.getActiveTeachers =(request, response, next) => {
+    console.log("get Active");
+    Model.find({"Active":true}).then((data) => {
+        if (data.length == 0) throw new error("No data");
+        response.status(200).json({ data });
+      })
+      .catch((error) => next(error));
+  };
 
-//create 
-module.exports.create = ((request, response, next) => {
-  let teacher = new Model({
-    name: request.body.name,
+  //getNotActiveTeachers
+  module.exports.getNotActiveTeachers =(request, response, next) => {
+    console.log("get Not Active");
+    Model.find({"Active":false}).then((data) => {
+        if (data.length == 0) throw new error("No data");
+        response.status(200).json({ data });
+      })
+      .catch((error) => next(error));
+  };
 
-  })
-  teacher.save()
-    .then((data) => {
-
-      response.status(200).json({ message: "Student Created" });
-
+  //getById
+  module.exports.getById = ((request, response, next) => {
+    Model.find({"_id":request.params.id})
+    .then((data)=>{
+        if(data.length==0)
+        throw new error("No data");
+        response.status(200).json({data}) ;
     })
-    .catch((error) => {
-      next(error)
-      console.log(error + "")
-    });
+    .catch(error=>next(error))
 });
 
+  //Update
+  module.exports.update = ((request, response, next) => {
+    Model.updateOne({"_id":request.body.id},{
+      $set:{
+        /*
 
+    Active: { type: Boolean},
+    AcceptanceDate: { type: Date },
+
+        */
+          name:request.body.name,
+          email:request.body.email,
+          phone:request.body.phone,
+          pricePerHour:request.body.pricePerHour,
+          experience:request.body.experience,
+          Latitude:request.body.Latitude,
+          Longitude:request.body.Longitude,
+          FieldId:request.body.FieldId,
+
+
+          rating:request.body.rating,
+          password:request.body.password
+      }
+  }).then((data)=>{
+      if(data.matchedCount==0)
+      throw new error("No Data!")
+      response.status(200).json({ message: "updated",data });
+  }).catch((error)=>{
+      next(error)
+      console.log(error+"")
+  })}
+
+);
+
+  //ChangeStatus
+  module.exports.changeStatus = ((request, response, next) => {
+    Model.updateOne({"_id":request.body.id},{
+      $set:{
+    Active:!Active,
+    AcceptanceDate:Date.now,
+      }
+  }).then((data)=>{
+      if(data.matchedCount==0)
+      throw new error("No Data!")
+      response.status(200).json({ message: "updated",data });
+  }).catch((error)=>{
+      next(error)
+      console.log(error+"")
+  })}
+
+);
+
+//Create
 module.exports.RegisterTeacher = (request, response, next) => {
   checkValidation(request)
   Model.findOne({ Email: request.body.email })
@@ -50,31 +113,4 @@ module.exports.RegisterTeacher = (request, response, next) => {
       }).catch(error => next(error));
 };
 
-//Get All 
-module.exports.getAll = (request, response, next) => {
-  console.log("get all");
-  Model.find({}).then((data) => {
-    if (data.length == 0) throw new error("No data");
-    response.status(200).json({ data });
-  })
-    .catch((error) => next(error));
-};
-
-//Get By Id
-module.exports.getById = ((request, response, next) => {
-  response.status(200).json({ message: "Get By Id" });
-});
-
-
-//Update 
-module.exports.update = ((request, response, next) => {
-  response.status(200).json({ message: "update" });
-
-});
-
-
-//delete 
-module.exports.delete = ((request, response, next) => {
-  response.status(200).json({ message: "delete" });
-
-});
+//Delete

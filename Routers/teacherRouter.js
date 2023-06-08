@@ -7,12 +7,18 @@ const Controller=require("./../Controllers/teacherController")
 
 const router=express.Router();
 router.route("/teachers")
-.get(Controller.getAll)
-.post(Controller.RegisterTeacher)
+.get(Controller.getActiveTeachers)
 .put(Controller.update)
-
+.post(Controller.RegisterTeacher)
 router.route("/teachers/:id?")
 .get(Controller.getById)
-.delete(Controller.delete)
+
+router.route("/teachers/notactive")
+.get(Controller.getNotActiveTeachers)
+
+router.route("/teachers/changestatus")
+.put(Controller.changeStatus)
+
+
 
 module.exports=router;
