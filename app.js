@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 
 const teacherRouter=require("./Routers/teacherRouter")
+const adminRouter=require("./Routers/adminRouter")
 
 
 const server=express();
@@ -35,6 +36,7 @@ server.use(body_parser.urlencoded({extended:false}));
 
 //routes
 server.use(teacherRouter);
+server.use(adminRouter);
 
 
 
