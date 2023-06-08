@@ -3,8 +3,9 @@ const body_parser = require("body-parser");
 const mongoose = require("mongoose");
 
 
-const teacherRouter=require("./Routers/teacherRouter")
-const adminRouter=require("./Routers/adminRouter")
+const teacherRouter=require("./Routers/teacherRouter");
+const adminRouter=require("./Routers/adminRouter");
+const studentRouter=require("./Routers/studentRouter");
 
 
 const server=express();
@@ -37,6 +38,7 @@ server.use(body_parser.urlencoded({extended:false}));
 //routes
 server.use(teacherRouter);
 server.use(adminRouter);
+server.use(studentRouter);
 
 
 

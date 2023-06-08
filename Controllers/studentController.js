@@ -1,9 +1,9 @@
 
-const Model = require("./../Models/adminModel");
+const Model = require("./../Models/studentModel");
 
 //getAll
 module.exports.getAll =(request, response, next) => {
-    console.log("get all admins");
+    console.log("get all students");
     Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
         response.status(200).json({ data });
@@ -29,20 +29,20 @@ module.exports.getAll =(request, response, next) => {
 module.exports.create = (request, response, next) => {
   console.log("create");
 
-  Model.find({ email: request.body.email  })
+  Model.find({ email: request.body.email })
     .then((Data) => {
       if (Object.keys(Data).length != 0) {
         //exist
         console.log("Already Exists");
         throw new error("Duplicated Email");
       } else {
-        let admin = new Model({
+        let student = new Model({
           email: request.body.email,
           name: request.body.name,
           password: request.body.password,
          
         });
-        admin.save().then((data) => {
+        student.save().then((data) => {
             response.status(201).json({ message: "created", data });
             console.log("created");
           })
