@@ -3,12 +3,15 @@ const mongoose=require("mongoose");
 
 const teacherSchema = new mongoose.Schema({
     
-   email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    password: { type: String, required: true },
-    field: { type: String, required: true },
-    pricePerHour: { type: Number, required: true },
-    experience: { type: Number, required: true },
+   email: { type: String,  unique: true },
+    name: { type: String },
+    password: { type: String},
+    pricePerHour: { type: Number},
+    experience: { type: Number },
+    Latitude: { type: Number},
+    Longitude: { type: Number},
+    Active: { type: Boolean},
+    field: { type: String },
     rating: { type: Number, default: 0 },
     registerationDate: { type: Date, default: Date.now },
   });
