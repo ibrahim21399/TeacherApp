@@ -1,4 +1,4 @@
-
+const bcrypt = require('bcrypt');
 const Model = require("./../Models/adminModel");
 
 //getAll
@@ -11,8 +11,7 @@ module.exports.getAll =(request, response, next) => {
       .catch((error) => next(error));
   };
 
- 
-  //getById
+//getById
   module.exports.getById = ((request, response, next) => {
     console.log("get by id");
 
@@ -27,8 +26,6 @@ module.exports.getAll =(request, response, next) => {
 
 //create 
 module.exports.create = (request, response, next) => {
-  console.log("create");
-
   Model.find({ email: request.body.email  })
     .then((Data) => {
       if (Object.keys(Data).length != 0) {
@@ -36,14 +33,17 @@ module.exports.create = (request, response, next) => {
         console.log("Already Exists");
         throw new error("Duplicated Email");
       } else {
+        bcrypt.hash(request.body.password, 10).then((hash) => {
         let admin = new Model({
           email: request.body.email,
-          name: request.body.name,      
+          name: request.body.name,
+          password:hash,       
         });
         admin.save().then((data) => {
             response.status(201).json({ message: "created", data });
             console.log("created");
           })
+        })
           .catch((error) => {
             next(error);
             console.log(error + "");
