@@ -39,7 +39,6 @@ module.exports.create = (request, response, next) => {
         let student = new Model({
           email: request.body.email,
           name: request.body.name,
-          password: request.body.password,
          
         });
         student.save().then((data) => {
@@ -67,7 +66,6 @@ module.exports.create = (request, response, next) => {
       $set:{
         email: request.body.email,
         name: request.body.name,
-       // password: request.body.password,
       }
   }).then((data)=>{
       if(data.matchedCount==0)
