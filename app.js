@@ -7,6 +7,7 @@ const teacherRouter = require("./Routers/teacherRouter");
 const authRouter = require("./Routers/authRouter");
 const studentRouter = require("./Routers/studentRouter");
 const adminRouter = require("./Routers/adminRouter");
+const fieldRouter = require("./Routers/fieldRouter");
 
 
 const server=express();
@@ -41,6 +42,7 @@ server.use(authRouter);
 server.use(teacherRouter);
 server.use(adminRouter);
 server.use(studentRouter);
+server.use(fieldRouter);
 
 
 
