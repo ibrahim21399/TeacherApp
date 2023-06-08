@@ -3,7 +3,9 @@ const body_parser = require("body-parser");
 const mongoose = require("mongoose");
 
 
-const teacherRouter=require("./Routers/teacherRouter")
+const authRouter=require("./Routers/authRouter");
+const teacherRouter=require("./Routers/teacherRouter");
+
 
 
 const server=express();
@@ -11,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/TeacherApp")
 .then(()=>{
     console.log("DB Connected");
         server.listen(process.env.PORT||8080,()=>{
-        console.log("I'm Listening.....");
+        console.log(`I'm Listening at port ${process.env.PORT??8080}.....`);
 });
 
 })
@@ -34,7 +36,9 @@ server.use(body_parser.json());
 server.use(body_parser.urlencoded({extended:false}));
 
 //routes
+server.use(authRouter);
 server.use(teacherRouter);
+
 
 
 

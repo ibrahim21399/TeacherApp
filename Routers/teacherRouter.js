@@ -8,7 +8,7 @@ const Controller=require("./../Controllers/teacherController")
 const router=express.Router();
 router.route("/teachers")
 .get(Controller.getAll)
-.post(Controller.create)
+.post(Controller.RegisterTeacher)
 .put(Controller.update)
 
 router.route("/teachers/:id?")
