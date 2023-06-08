@@ -1,7 +1,6 @@
 
 const Model = require("./../Models/teacherModel");
 
-
 //Get All 
 module.exports.getAll =(request, response, next) => {
     console.log("get all");
