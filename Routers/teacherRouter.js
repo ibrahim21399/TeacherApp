@@ -16,7 +16,7 @@ router.route("/teachers/:id?")
 router.route("/notactiveteachers")
 .get(Controller.getNotActiveTeachers)
 
-router.route("/teachers/changestatus")
+router.route("/changeteacherstatus/")
 .put(Controller.changeStatus)
 
 

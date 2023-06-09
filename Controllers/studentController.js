@@ -93,3 +93,20 @@ module.exports.delete = (request, response, next) => {
             })
             .catch(error => next(error))
     }
+
+      //ChangeStatus
+  module.exports.changeStatus = ((request, response, next) => {
+    Model.updateOne({"_id":request.body.id},{
+      $set:{
+    Active:!Active,
+      }
+  }).then((data)=>{
+      if(data.matchedCount==0)
+      throw new error("No Data!")
+      response.status(200).json({ message: "updated",data });
+  }).catch((error)=>{
+      next(error)
+      console.log(error+"")
+  })}
+
+);
