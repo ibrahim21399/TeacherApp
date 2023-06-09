@@ -14,7 +14,7 @@ module.exports.getActiveTeachers =(request, response, next) => {
   //getNotActiveTeachers
   module.exports.getNotActiveTeachers =(request, response, next) => {
     console.log("get Not Active");
-    Model.find({"Active":false}).then((data) => {
+    Model.find({"Active":false}).populate('FieldId').then((data) => {
         if (data.length == 0) throw new error("No data");
         response.status(200).json({ data });
       })

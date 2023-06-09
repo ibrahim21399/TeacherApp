@@ -1,8 +1,7 @@
 const express =require("express");
 const body_parser = require("body-parser");
 const mongoose = require("mongoose");
-
-
+const cors=require("cors");
 const teacherRouter = require("./Routers/teacherRouter");
 const authRouter = require("./Routers/authRouter");
 const studentRouter = require("./Routers/studentRouter");
@@ -30,7 +29,13 @@ server.use((request, response, next) => {
 });
 
 // Cors
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 
+server.use(cors(corsOptions));
 
 
 //body parser

@@ -1,4 +1,4 @@
-/*const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 
 module.exports=(request,response,next)=>{
@@ -14,4 +14,4 @@ module.exports=(request,response,next)=>{
     request.role = decodedToken.role;
         request._id = decodedToken._id;
         next();
-}*/
+}
