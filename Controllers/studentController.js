@@ -72,7 +72,8 @@ module.exports.create = (request, response, next) => {
         name: request.body.name,
       }
   }).then((data)=>{
-      if(data.matchedCount==0)
+    console.log(data.matchedCount)
+      if(data.matchedCount==undefined)
       throw new error("No Data!")
       response.status(200).json({ message: "updated",data });
   }).catch((error)=>{
