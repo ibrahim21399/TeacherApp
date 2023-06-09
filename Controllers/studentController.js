@@ -7,7 +7,7 @@ module.exports.getAll =(request, response, next) => {
     console.log("get all students");
     Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
-        response.status(200).json({ data });
+        response.status(200).json( data );
       })
       .catch((error) => next(error));
   };
@@ -21,7 +21,7 @@ module.exports.getAll =(request, response, next) => {
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");
-        response.status(200).json({data}) ;
+        response.status(200).json(data) ;
     })
     .catch(error=>next(error))
 });
