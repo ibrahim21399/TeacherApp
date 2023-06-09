@@ -6,7 +6,7 @@ module.exports.getAll =(request, response, next) => {
     console.log("get all fields");
     Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
-        response.status(200).json({ data });
+        response.status(200).json(data);
       })
       .catch((error) => next(error));
   };
@@ -20,7 +20,7 @@ module.exports.getAll =(request, response, next) => {
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");
-        response.status(200).json({data}) ;
+        response.status(200).json(data) ;
     })
     .catch(error=>next(error))
 });
@@ -60,7 +60,7 @@ module.exports.create = (request, response, next) => {
   module.exports.update = ((request, response, next) => {
     console.log("update");
 
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
         name: request.body.name,
       }

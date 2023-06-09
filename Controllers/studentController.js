@@ -7,7 +7,7 @@ module.exports.getAll =(request, response, next) => {
     console.log("get all students");
     Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
-        response.status(200).json({ data });
+        response.status(200).json( data );
       })
       .catch((error) => next(error));
   };
@@ -21,7 +21,7 @@ module.exports.getAll =(request, response, next) => {
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");
-        response.status(200).json({data}) ;
+        response.status(200).json(data) ;
     })
     .catch(error=>next(error))
 });
@@ -60,7 +60,7 @@ module.exports.create = (request, response, next) => {
   module.exports.update = ((request, response, next) => {
     console.log("update");
 
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
         email: request.body.email,
         name: request.body.name,
@@ -90,7 +90,7 @@ module.exports.delete = (request, response, next) => {
 
       //ChangeStatus
   module.exports.changeStatus = ((request, response, next) => {
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
     Active:!Active,
       }

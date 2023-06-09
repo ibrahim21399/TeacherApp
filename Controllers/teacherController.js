@@ -5,8 +5,10 @@ const checkValidation = require("./../Middleware/checkValidationFn");
 module.exports.getActiveTeachers =(request, response, next) => {
     console.log("get Active");
     Model.find({"Active":true}).then((data) => {
+    console.log(data);
+
         if (data.length == 0) throw new error("No data");
-        response.status(200).json({ data });
+        response.status(200).json(data );
       })
       .catch((error) => next(error));
   };
@@ -16,7 +18,7 @@ module.exports.getActiveTeachers =(request, response, next) => {
     console.log("get Not Active");
     Model.find({"Active":false}).populate('FieldId').then((data) => {
         if (data.length == 0) throw new error("No data");
-        response.status(200).json({ data });
+        response.status(200).json(data );
       })
       .catch((error) => next(error));
   };
@@ -26,7 +28,7 @@ module.exports.getHighRateTeachers =(request, response, next) => {
   console.log("get get High Rate Teachers");
   Model.find({"Active":true}).populate('FieldId').sort({ rating: -1 }).then((data) => {
       if (data.length == 0) throw new error("No data");
-      response.status(200).json({ data });
+      response.status(200).json( data );
     })
     .catch((error) => next(error));
 };
@@ -37,14 +39,14 @@ module.exports.getHighRateTeachers =(request, response, next) => {
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");
-        response.status(200).json({data}) ;
+        response.status(200).json(data) ;
     })
     .catch(error=>next(error))
 });
 
   //Update
   module.exports.update = ((request, response, next) => {
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
         /*
 
@@ -78,10 +80,10 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 
   //ChangeStatus
   module.exports.changeStatus = ((request, response, next) => {
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._idid},{
       $set:{
-    Active:!Active,
-    AcceptanceDate:Date.now,
+    Active:true,
+    AcceptanceDate:Date.now(),
       }
   }).then((data)=>{
       if(data.matchedCount==0)
