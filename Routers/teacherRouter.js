@@ -16,6 +16,9 @@ router.route("/teachers/:id?")
 router.route("/notactiveteachers")
 .get(Controller.getNotActiveTeachers)
 
+router.route("/highrateteachers")
+.get(Controller.getHighRateTeachers)
+
 router.route("/changeteacherstatus/")
 .put(Controller.changeStatus)
 
