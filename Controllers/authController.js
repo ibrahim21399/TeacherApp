@@ -53,7 +53,7 @@ module.exports.login = async(request, response, next) => {
                         response.status(200).json({ message: "student logged in successfully", token });
                         loggedIn = true;
                     } else {
-                        response.status(400).json({message: "Email or password incorrect"});
+                        response.status(400).message("Email or password incorrect").json({message: "Email or password incorrect"});
                     }
                 });
             }
@@ -74,10 +74,10 @@ module.exports.login = async(request, response, next) => {
                                     name:data.name,
                                 },
                                 "thisismysecuritykey", { expiresIn: "1h" });
-                            response.status(200).json({ message: "teacher logged in successfully", token });
+                            response.status(200).json({ message: "teacher logged in successfully" , token });
                             loggedIn = true;
                         } else {
-                            response.status(400).json({message: "Email or password incorrect"});
+                            response.status(404).json({message: "Email or password incorrect"});
                         }
                     });
                 }

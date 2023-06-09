@@ -32,10 +32,10 @@ module.exports.create = (request, response, next) => {
 
   Model.find({ email: request.body.email })
     .then((Data) => {
-      if (Object.keys(Data).length != 0) {
+      if (Data) {
         //exist
-        console.log("Already Exists");
-        throw new error("Duplicated Email");
+        console.log("dddd")
+        throw new Error("this email is already taken");
       } else {
         
         bcrypt.hash(request.body.password, 10).then((hash) => {
@@ -49,16 +49,10 @@ module.exports.create = (request, response, next) => {
             console.log("created");
           })
         })
-          .catch((error) => {
-            next(error);
-            console.log(error + "");
-          });
+        .catch(error => next(error));
       }
     })
-    .catch((error) => {
-      next(error);
-      console.log(error + "");
-    });
+    .catch(error => next(error));
 };
 
 

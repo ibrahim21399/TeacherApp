@@ -86,11 +86,13 @@ module.exports.getActiveTeachers =(request, response, next) => {
 
 //Create
 module.exports.RegisterTeacher = (request, response, next) => {
-  checkValidation(request)
-  Model.findOne({ Email: request.body.email })
+  // checkValidation(request)
+  console.log(request);
+  Model.findOne({ email: request.body.email })
       .then((data) => {
-          if (data)
+          if (data){
               throw new Error("this email is already taken");
+          }
           // encrypt the password
           bcrypt.hash(request.body.password, 10).then((hash) => {
               let newTeacher = new Model({
