@@ -15,6 +15,8 @@ router.route("/students/:id?")
 .get(Controller.getById)
 .delete(Controller.delete)
 
+router.route("/changestdstatus/")
+.put(Controller.changeStatus)
 
 
 

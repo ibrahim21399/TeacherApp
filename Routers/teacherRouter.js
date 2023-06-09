@@ -13,10 +13,10 @@ router.route("/teachers")
 router.route("/teachers/:id?")
 .get(Controller.getById)
 
-router.route("/teachers/notactive")
+router.route("/notactiveteachers")
 .get(Controller.getNotActiveTeachers)
 
-router.route("/teachers/changestatus")
+router.route("/changeteacherstatus/")
 .put(Controller.changeStatus)
 
 
