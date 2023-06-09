@@ -5,6 +5,8 @@ const checkValidation = require("./../Middleware/checkValidationFn");
 module.exports.getActiveTeachers =(request, response, next) => {
     console.log("get Active");
     Model.find({"Active":true}).then((data) => {
+    console.log(data);
+
         if (data.length == 0) throw new error("No data");
         response.status(200).json({ data });
       })
@@ -80,8 +82,8 @@ module.exports.getHighRateTeachers =(request, response, next) => {
   module.exports.changeStatus = ((request, response, next) => {
     Model.updateOne({"_id":request.body.id},{
       $set:{
-    Active:!Active,
-    AcceptanceDate:Date.now,
+    Active:true,
+    AcceptanceDate:Date.now(),
       }
   }).then((data)=>{
       if(data.matchedCount==0)
