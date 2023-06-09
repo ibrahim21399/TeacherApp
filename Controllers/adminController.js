@@ -61,7 +61,7 @@ module.exports.create = (request, response, next) => {
   module.exports.update = ((request, response, next) => {
     console.log("update");
 
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
         email: request.body.email,
         name: request.body.name,

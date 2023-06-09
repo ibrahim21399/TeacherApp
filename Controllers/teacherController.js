@@ -46,7 +46,7 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 
   //Update
   module.exports.update = ((request, response, next) => {
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._id},{
       $set:{
         /*
 
@@ -80,7 +80,7 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 
   //ChangeStatus
   module.exports.changeStatus = ((request, response, next) => {
-    Model.updateOne({"_id":request.body.id},{
+    Model.updateOne({"_id":request.body._idid},{
       $set:{
     Active:true,
     AcceptanceDate:Date.now(),
