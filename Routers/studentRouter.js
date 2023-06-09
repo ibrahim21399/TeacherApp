@@ -18,6 +18,8 @@ router.route("/students/:id?")
 router.route("/changestdstatus/")
 .put(Controller.changeStatus)
 
+router.route("/blockedstudents")
+.get(Controller.getAllBlocked)
 
 
 module.exports=router;

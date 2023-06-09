@@ -5,14 +5,24 @@ const bcrypt = require('bcrypt');
 //getAll
 module.exports.getAll =(request, response, next) => {
     console.log("get all students");
-    Model.find({}).then((data) => {
+    Model.find({"Active":true}).then((data) => {
         if (data.length == 0) throw new error("No data");
         response.status(200).json( data );
       })
       .catch((error) => next(error));
   };
 
- 
+ //getAllBlocked
+module.exports.getAllBlocked =(request, response, next) => {
+  console.log("get all students");
+  Model.find({"Active":false}).then((data) => {
+      if (data.length == 0) throw new error("No data");
+      response.status(200).json( data );
+    })
+    .catch((error) => next(error));
+};
+
+
   //getById
   module.exports.getById = ((request, response, next) => {
     console.log("get by id");
