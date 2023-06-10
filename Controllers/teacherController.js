@@ -142,7 +142,7 @@ module.exports.RegisterTeacher = (request, response, next) => {
               let newTeacher = new Model({
                   email: request.body.email,
                   Phone:request.body.Phone,
-                  FieldId:request.body.FieldId,
+                  FieldId:request.body.fieldId,
                   rating:0,
                   experience:request.body.experience,
                   Latitude:request.body.Latitude,
