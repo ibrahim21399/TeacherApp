@@ -5,22 +5,12 @@ const bcrypt = require('bcrypt');
 //getAll
 module.exports.getAll =(request, response, next) => {
     console.log("get all students");
-    Model.find({"Active":true}).then((data) => {
+    Model.find({}).then((data) => {
         if (data.length == 0) throw new error("No data");
         response.status(200).json( data );
       })
       .catch((error) => next(error));
   };
-
- //getAllBlocked
-module.exports.getAllBlocked =(request, response, next) => {
-  console.log("get all students");
-  Model.find({"Active":false}).then((data) => {
-      if (data.length == 0) throw new error("No data");
-      response.status(200).json( data );
-    })
-    .catch((error) => next(error));
-};
 
 
   //getById
@@ -40,11 +30,12 @@ module.exports.getAllBlocked =(request, response, next) => {
 module.exports.create = (request, response, next) => {
   console.log("create");
 
-  Model.find({ email: request.body.email })
+  Model.find({ "email": request.body.email })
     .then((Data) => {
-      if (Data) {
-        //exist
-        console.log("dddd")
+      if(Data.length!=0)
+      {
+      //exist
+        console.log(request.body)
         throw new Error("this email is already taken");
       } else {
         
@@ -99,10 +90,10 @@ module.exports.delete = (request, response, next) => {
     }
 
       //ChangeStatus
-  module.exports.changeStatus = ((request, response, next) => {
-    Model.updateOne({"_id":request.body._id},{
+  module.exports.Block = ((request, response, next) => {
+    Model.updateOne({"_id":request.params.id},{
       $set:{
-    Active:!Active,
+    Active:false ,
       }
   }).then((data)=>{
       if(data.matchedCount==0)
@@ -112,5 +103,26 @@ module.exports.delete = (request, response, next) => {
       next(error)
       console.log(error+"")
   })}
+
+
+
+  
+);
+module.exports.Active = ((request, response, next) => {
+  Model.updateOne({"_id":request.params.id},{
+    $set:{
+  Active:true ,
+    }
+}).then((data)=>{
+    if(data.matchedCount==0)
+    throw new error("No Data!")
+    response.status(200).json({ message: "updated",data });
+}).catch((error)=>{
+    next(error)
+    console.log(error+"")
+})}
+
+
+
 
 );

@@ -15,11 +15,11 @@ router.route("/students/:id?")
 .get(Controller.getById)
 .delete(Controller.delete)
 
-router.route("/changestdstatus/")
-.put(Controller.changeStatus)
+router.route("/BlockStudent/:id")
+.get(Controller.Block)
 
-router.route("/blockedstudents")
-.get(Controller.getAllBlocked)
 
+router.route("/ActiveStudent/:id")
+.get(Controller.Active)
 
 module.exports=router;
