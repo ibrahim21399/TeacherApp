@@ -1,9 +1,6 @@
 const Model = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
 const checkValidation = require("./../Middleware/checkValidationFn");
-// const sgMail = require('@sendgrid/mail');
-// sgMail.setApiKey("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");
-
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
