@@ -2,6 +2,17 @@
 const Model = require("./../Models/studentModel");
 const teacherModel = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  auth: {
+    user: "teacherapp67@gmail.com",
+    pass:"nryxzoxaeroptjfy"
+  },
+});
+
 
 //getAll
 module.exports.getAll =(request, response, next) => {
@@ -137,8 +148,26 @@ module.exports.Active = ((request, response, next) => {
   Active:true ,
     }
 }).then((data)=>{
-    if(data.matchedCount==0)
-    throw new error("No Data!")
+    if(data.matchedCount==0){
+    throw new error("No Data!");
+    }else{
+      Model.findById(request.params.id).then((data)=>{
+        const mailOptions = {
+          from:"teacherapp67@gmail.com",
+          to:data.email,
+          subject: 'Your account has been Activted',
+          text: 'Congratulations! Your account has been Activeted by Admin.'
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+      });
+    }
     response.status(200).json({ message: "updated",data });
 }).catch((error)=>{
     next(error)
