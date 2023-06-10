@@ -1,5 +1,6 @@
 
 const Model = require("./../Models/studentModel");
+const teacherModel = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
 
 //getAll
@@ -25,6 +26,30 @@ module.exports.getAll =(request, response, next) => {
     })
     .catch(error=>next(error))
 });
+
+
+  //EnrollToTeacher
+  module.exports.Enroll = ( async (request, response, next) => {
+    try {
+    console.log("EnrollToTeacher");
+    const teacherId = request.body.TeacherId;
+    const studentId = request.body.StudentId;
+    const teacher = await teacherModel.findById(teacherId);
+    if (!teacher) {
+      throw new Error('Teacher not found');
+    }
+    if (teacher.studentEnrolled.includes(studentId)) {
+      throw new Error('Student is already enrolled');
+    }
+    teacher.studentEnrolled.push(studentId);
+    await teacher.save();
+    response.status(200).json(teacher);
+  }
+  catch (error) {
+    next(error);
+  }
+});
+
 
 //create 
 module.exports.create = (request, response, next) => {
@@ -104,9 +129,6 @@ module.exports.delete = (request, response, next) => {
       next(error)
       console.log(error+"")
   })}
-
-
-
   
 );
 module.exports.Active = ((request, response, next) => {
@@ -122,8 +144,4 @@ module.exports.Active = ((request, response, next) => {
     next(error)
     console.log(error+"")
 })}
-
-
-
-
 );

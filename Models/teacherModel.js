@@ -16,6 +16,8 @@ const teacherSchema = new mongoose.Schema({
     registerationDate: { type: Date, default: Date.now },
     Active: { type: Boolean},
     AcceptanceDate: { type: Date },
+    studentEnrolled : [{type:mongoose.Types.ObjectId, ref:"students"}]
+
   });
   
   module.exports = mongoose.model('teachers', teacherSchema);
