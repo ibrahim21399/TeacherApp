@@ -1,6 +1,24 @@
 const Model = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
 const checkValidation = require("./../Middleware/checkValidationFn");
+// const sgMail = require('@sendgrid/mail');
+// sgMail.setApiKey("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");
+
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  auth: {
+    user: "teacherapp67@gmail.com",
+    pass:"nryxzoxaeroptjfy"
+  },
+});
+
+
+
+
+
 
 //getActiveTeachers
 module.exports.getActiveTeachers =(request, response, next) => {
@@ -82,8 +100,27 @@ module.exports.getHighRateTeachers =(request, response, next) => {
       }
   }).then((data)=>{
       if(data.matchedCount==0)
-      throw new error("No Data!")
+      throw new error("No Data!");
+      else{
+Model.findById(request.params.id).then((data)=>{
+  const mailOptions = {
+    from:"teacherapp67@gmail.com",
+    to:data.email,
+    subject: 'Your account has been approved',
+    text: 'Congratulations! Your account has been approved.'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
       response.status(200).json({ message: "updated",data });
+
+      }
   }).catch((error)=>{
       next(error)
       console.log(error+"")
