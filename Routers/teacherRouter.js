@@ -10,6 +10,7 @@ router.route("/teachers")
 .get(Controller.getActiveTeachers)
 .put(Controller.update)
 .post(Controller.RegisterTeacher)
+
 router.route("/teachers/:id?")
 .get(Controller.getById)
 
@@ -19,8 +20,9 @@ router.route("/notactiveteachers")
 router.route("/highrateteachers")
 .get(Controller.getHighRateTeachers)
 
-router.route("/changeteacherstatus/")
-.put(Controller.changeStatus)
+
+router.route("/activeteachers/:id")
+.get(Controller.Active)
 
 
 

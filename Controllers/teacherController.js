@@ -1,10 +1,11 @@
 const Model = require("./../Models/teacherModel");
 const bcrypt = require('bcrypt');
 const checkValidation = require("./../Middleware/checkValidationFn");
+
 //getActiveTeachers
 module.exports.getActiveTeachers =(request, response, next) => {
     console.log("get Active");
-    Model.find({"Active":true}).then((data) => {
+    Model.find({"Active":true}).populate('FieldId').then((data) => {
     console.log(data);
 
         if (data.length == 0) throw new error("No data");
@@ -13,7 +14,7 @@ module.exports.getActiveTeachers =(request, response, next) => {
       .catch((error) => next(error));
   };
 
-  //getNotActiveTeachers
+  //getPendingTeachers
   module.exports.getNotActiveTeachers =(request, response, next) => {
     console.log("get Not Active");
     Model.find({"Active":false}).populate('FieldId').then((data) => {
@@ -35,7 +36,7 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 
   //getById
   module.exports.getById = ((request, response, next) => {
-    Model.find({"_id":request.params.id})
+    Model.find({"_id":request.params.id}).populate('FieldId')
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");
@@ -48,12 +49,7 @@ module.exports.getHighRateTeachers =(request, response, next) => {
   module.exports.update = ((request, response, next) => {
     Model.updateOne({"_id":request.body._id},{
       $set:{
-        /*
-
-    Active: { type: Boolean},
-    AcceptanceDate: { type: Date },
-
-        */
+       
           name:request.body.name,
           email:request.body.email,
           phone:request.body.phone,
@@ -62,8 +58,6 @@ module.exports.getHighRateTeachers =(request, response, next) => {
           Latitude:request.body.Latitude,
           Longitude:request.body.Longitude,
           FieldId:request.body.FieldId,
-
-
           rating:request.body.rating,
           password:request.body.password
       }
@@ -79,8 +73,9 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 );
 
   //ChangeStatus
-  module.exports.changeStatus = ((request, response, next) => {
-    Model.updateOne({"_id":request.body._idid},{
+  module.exports.Active = ((request, response, next) => {
+    console.log(request.params.id)
+    Model.updateOne({"_id":request.params.id},{
       $set:{
     Active:true,
     AcceptanceDate:Date.now(),

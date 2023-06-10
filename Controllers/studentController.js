@@ -44,6 +44,7 @@ module.exports.create = (request, response, next) => {
             email: request.body.email,
             name: request.body.name,
             password:hash,
+            Active:true
         });
         student.save().then((data) => {
             response.status(201).json({ message: "created", data });
