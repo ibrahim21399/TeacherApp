@@ -163,3 +163,12 @@ module.exports.RegisterTeacher = (request, response, next) => {
 };
 
 //Delete
+module.exports.delete = (request, response, next) => {
+  console.log("delete");
+
+            Model.deleteOne({ _id: request.params.id })
+            .then(data => {
+                response.status(200).json({ message: "Deleted", data });
+            })
+            .catch(error => next(error))
+    }
