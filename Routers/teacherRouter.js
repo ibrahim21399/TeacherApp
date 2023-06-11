@@ -13,6 +13,7 @@ router.route("/teachers")
 
 router.route("/teachers/:id?")
 .get(Controller.getById)
+.delete(Controller.delete)
 
 router.route("/notactiveteachers")
 .get(Controller.getNotActiveTeachers)
