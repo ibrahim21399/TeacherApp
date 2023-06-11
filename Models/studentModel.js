@@ -6,7 +6,6 @@ const studentSchema = new mongoose.Schema({
   password: { type: String },
   registerationDate: { type: Date, default: Date.now },
   Active: { type: Boolean},
-
 });
 
 module.exports = mongoose.model('students', studentSchema);
