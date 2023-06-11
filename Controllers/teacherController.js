@@ -51,7 +51,13 @@ module.exports.getHighRateTeachers =(request, response, next) => {
 
   //getById
   module.exports.getById = ((request, response, next) => {
-    Model.find({"_id":request.params.id}).populate('FieldId')
+    Model.find({"_id":request.params.id}).populate('FieldId').populate({
+      path: 'studentEnrolled',
+      populate: {
+        path: '_id',
+        select: 'name'
+      }
+    })
     .then((data)=>{
         if(data.length==0)
         throw new error("No data");

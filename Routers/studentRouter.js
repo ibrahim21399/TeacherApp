@@ -22,4 +22,7 @@ router.route("/BlockStudent/:id")
 router.route("/ActiveStudent/:id")
 .get(Controller.Active)
 
+router.route("/enroll")
+.post(Controller.Enroll)
+
 module.exports=router;
