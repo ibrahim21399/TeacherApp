@@ -144,7 +144,7 @@ module.exports.RegisterTeacher = (request, response, next) => {
           bcrypt.hash(request.body.password, 10).then((hash) => {
               let newTeacher = new Model({
                   email: request.body.email,
-                  Phone:request.body.Phone,
+                  phone:request.body.phone,
                   FieldId:request.body.fieldId,
                   rating:0,
                   experience:request.body.experience,
