@@ -187,3 +187,35 @@ module.exports.delete = (request, response, next) => {
             })
             .catch(error => next(error))
     }
+
+    module.exports.rate = async (request, response, next) => {
+    console.log(request.params)
+
+      const teacherId = request.params.teacherId;
+      const rateVal = request.params.rateVal;
+    console.log(teacherId)
+    console.log(rateVal)
+      try {
+        const teacher = await Model.findById(teacherId);
+    
+        if (!teacher) {
+          return response.status(404).send('Teacher not found');
+        }
+    
+        // Update the rating array with the new rating
+        teacher.ratingArray.push(parseInt(rateVal, 10));
+    
+        // Calculate the new average rating
+        const totalRating = teacher.ratingArray.reduce((acc, rating) => acc + rating, 0);
+        const averageRating = totalRating / teacher.ratingArray.length;
+    
+        // Update the teacher's rating in the database
+        teacher.rating = averageRating;
+        await teacher.save();
+    
+        return response.status(200).send({Message:`Teacher ${teacherId} rated with ${rateVal}`});
+      } catch (error) {
+        console.error(error);
+        return response.status(500).send('Error rating teacher');
+      }
+    };

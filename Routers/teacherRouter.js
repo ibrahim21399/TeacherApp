@@ -26,5 +26,7 @@ router.route("/activeteachers/:id")
 .get(Controller.Active)
 
 
+router.route("/rate/:teacherId/:rateVal")
+.get(Controller.rate)
 
 module.exports=router;

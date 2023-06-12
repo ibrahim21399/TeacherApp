@@ -17,6 +17,7 @@ const teacherSchema = new mongoose.Schema({
     Active: { type: Boolean},
     AcceptanceDate: { type: Date },
     studentEnrolled : [{type:mongoose.Types.ObjectId, ref:"students"}],
+    ratingArray : [{type:Number}],
   });
   
   module.exports = mongoose.model('teachers', teacherSchema);
