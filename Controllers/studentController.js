@@ -47,10 +47,14 @@ module.exports.getAll =(request, response, next) => {
     const studentId = request.body.StudentId;
     const teacher = await teacherModel.findById(teacherId);
     if (!teacher) {
+      console.log("'Teacher not found'");
+
       throw new Error('Teacher not found');
     }
     if (teacher.studentEnrolled.includes(studentId)) {
+      console.log("Student is already enrolled");
       throw new Error('Student is already enrolled');
+
     }
     teacher.studentEnrolled.push(studentId);
     await teacher.save();

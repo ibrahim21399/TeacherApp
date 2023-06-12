@@ -156,6 +156,21 @@ module.exports.RegisterTeacher = (request, response, next) => {
                   password:hash,
               });
               newTeacher.save().then((data) => {
+                  
+                const mailOptions = {
+                  from:"teacherapp67@gmail.com",
+                  to:"SAHRAOUISTAT2013@GMAIL.COM",
+                  subject: 'New Teacher Has Been Register',
+                  text: 'New Teacher Has Been Register and wait you to approve'
+                };
+                
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                  }
+                });
                       response.status(201).json({ message: "teacher registered successfully", data });
                   }).catch(error => next(error));
           });

@@ -67,7 +67,7 @@ module.exports.login = async(request, response, next) => {
                             response.status(200).json({ message: "student logged in successfully", token });
                             loggedIn = true;
                         } else {
-                            response.status(400).message("Email or password incorrect").json({message: "Email or password incorrect"});
+                            response.status(400).json({message: "Email or password incorrect"});
                         }
                     });
                 }else{
